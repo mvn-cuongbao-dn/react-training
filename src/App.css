@@ -79,6 +79,9 @@ article, aside, details, figure, footer, header, menu, nav, section, summary {
 .mr-auto {
   margin-right: auto !important;
 }
+.mb-1 {
+  margin-bottom: 4px !important;
+}
 /* Text */
 .text-center {
   text-align: center;
@@ -169,6 +172,46 @@ article, aside, details, figure, footer, header, menu, nav, section, summary {
   width: 50px;
   height: 50px;
   margin-top: 16px;
+}
+.close {
+  float: right;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  opacity: .5;
+}
+button.close {
+  padding: 0;
+  background-color: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+/* List */
+.list-group {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+.list-group-item {
+  position: relative;
+  display: block;
+  padding: 12px 20px;
+  margin-bottom: -1px;
+  background-color: #fff;
+  border: 1px solid rgba(0,0,0,.125);
+}
+.list-group-item:first-child {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+.list-group-item:last-child {
+  margin-bottom: 0;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
 }
 /* Button */
 .btn {
