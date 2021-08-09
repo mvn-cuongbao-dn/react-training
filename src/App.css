@@ -91,16 +91,25 @@ article, aside, details, figure, footer, header, menu, nav, section, summary {
 .d-flex {
   display: flex;
 }
+.d-flex-inline {
+  display: inline-flex;
+}
+.flex-column {
+  flex-direction: column!important;
+}
 .justify-content-center {
   justify-content: center !important;
 }
 .justify-content-between {
   justify-content: space-between !important;
 }
-/*
- * Page area
- */
-/* Header */
+.justify-content-around {
+  justify-content: space-around !important;
+}
+.align-items-center {
+  align-items: center !important;
+}
+/* Navbar */
 .navbar, .navbar-nav {
   display: flex;
 }
@@ -123,7 +132,72 @@ article, aside, details, figure, footer, header, menu, nav, section, summary {
 .navbar-nav .active > .nav-link {
   color: #61dafb;
 }
+/* Nav tabs */
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+.nav-tabs {
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #dee2e6;
+}
+.nav-tabs .nav-item {
+  display: block;
+  padding: .5rem 1rem;
+  margin-bottom: -1px;
+  border: 1px solid transparent;
+  border-top-left-radius: .25rem;
+  border-top-right-radius: .25rem;
+}
+.nav-tabs .nav-item.active {
+  background-color: #fff;
+  border-color: #dee2e6 #dee2e6 #fff;
+}
+/* Modules */
+.circle {
+  background: #fff;
+  color: #61dafb;
+  border: 1px solid #dee2e6;
+  border-radius: 50%;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  margin-top: 16px;
+}
+/* Button */
+.btn {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: 6px 12px;
+  font-size: 16px;
+  line-height: 1.5;
+  border-radius: 4px;
+  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.btn:not(:disabled):not(.disabled) {
+  cursor: pointer;
+}
+/*
+ * Page area
+ */
 /* Page main */
+.page-wrapper {
+  position: relative;
+  padding: 24px;
+  margin-top: 32px;
+  border: 3px solid #f7f7f9;
+}
 .logo-img {
   height: 40vmin;
   pointer-events: none;
