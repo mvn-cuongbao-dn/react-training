@@ -10,7 +10,7 @@ export default class Header extends Component {
           <a className="navbar-brand" href="#">
             <img src={logo} width="50" height="50" alt="logo" />
           </a>
-          <ul class="navbar-nav mr-auto">
+          <ul className="navbar-nav mr-auto">
             <li className="nav-item active">
               <a className="nav-link" href="#">Menu 1</a>
             </li>
