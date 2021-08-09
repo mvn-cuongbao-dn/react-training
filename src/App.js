@@ -2,13 +2,39 @@ import './App.css';
 import Header from './layouts/Header';
 import Footer from './layouts/Footer';
 import React, { Component } from 'react';
-import Circle from './modules/Circle';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       page: 'home',
+      todoList: [
+        {
+          id: 1, 
+          title: 'This is title 1', 
+          desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing.',
+        },
+        {
+          id: 2, 
+          title: 'This is title 2',
+          desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing.',
+        },
+        {
+          id: 3, 
+          title: 'This is title 3',
+          desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing.',
+        },
+        {
+          id: 4, 
+          title: 'This is title 4',
+          desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing.',
+        },
+        {
+          id: 5, 
+          title: 'This is title 5',
+          desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing.',
+        }
+      ]
     };
   }
 
@@ -16,6 +42,12 @@ class App extends Component {
     this.setState({
       page
     });
+  }
+
+  handleDeteleTodo(todoId) {
+    this.setState(prevState => ({
+      todoList: prevState.todoList.filter(item => item.id !== todoId)
+    }));
   }
 
   render() {
@@ -40,11 +72,20 @@ class App extends Component {
               <div className="tab-content">
                 {(page === 'home') && 
                   <div className="tab-pane">
-                    <div className="d-flex justify-content-around">
-                      <Circle number="50"></Circle>
-                      <Circle number="40"></Circle>
-                      <Circle number="30"></Circle>
-                    </div>
+                    { this.state.todoList.length 
+                        ? <ul className="list-group">
+                            { this.state.todoList.map((item) =>
+                              <li className="list-group-item" key={item.id}>
+                                <button type="button" className="close" onClick={()=>{this.handleDeteleTodo(item.id)}}>
+                                  <span aria-hidden="true">×</span>
+                                </button>
+                                <h5 className="mb-1">{item.title}</h5>
+                                <p>{item.desc}</p>
+                              </li>
+                            )}
+                          </ul>
+                        : <p className="text-center">No contents</p>
+                    }
                   </div>}
                 {(page === 'about') && <div className="tab-pane">About page</div>}
               </div>
