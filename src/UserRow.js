@@ -6,14 +6,14 @@ class UserRow extends Component {
   }
 
   handleRemoveUser = () => {
-    this.props.onRemoveUser(this.props.id);
+    this.props.onRemoveUser(this.props.user.id);
   }
 
   render() {
     const user = this.props.user;
     return (
       <tr key={user.id}>
-        <td>{this.props.id}</td>
+        <td>{user.id}</td>
         <td>{user.email}</td>
         <td>{user.country}</td>
         <td>{user.gender === '0' ? 'Male' : 'Female'}</td>

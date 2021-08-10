@@ -1,8 +1,10 @@
 import './App.css';
 import Header from './layouts/Header';
 import Footer from './layouts/Footer';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import UserRow from './UserRow';
+
+const api = 'https://reqres.in/api/users?page=';
 
 const App = () => {
   const [form, setForm] = useState({
@@ -13,10 +15,12 @@ const App = () => {
     other: ''
   });
   const [userList, setUserList] = useState([]);
-  const [page, setPage] = useState('home');
+  const [view, setView] = useState('home');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState();
   
-  const handleChangePage = (page) => {
-    setPage(page);
+  const handleChangeView = (view) => {
+    setView(view);
   }
 
   const handleChange = (event) => {
@@ -41,6 +45,22 @@ const App = () => {
     setUserList(newUserList);
   }
 
+  const handleChangePage = (newPage) => {
+    if (newPage < 1 || newPage > totalPages) {
+      return;
+    }
+    setCurrentPage(newPage);
+  }
+
+  useEffect(() => {
+    fetch(`${api}${currentPage}`)
+      .then(results => results.json())
+      .then(res => {
+        setUserList(res.data);
+        setTotalPages(res.total_pages);
+      });
+  }, [currentPage]);
+
   return (
     <div className="page-content">
       <Header />
@@ -49,16 +69,16 @@ const App = () => {
           <div className="page-wrapper">
             <nav className="nav nav-tabs">
               <button 
-                className={`nav-item ${page === 'home' ? 'active' : ''}`}
-                onClick={() => handleChangePage('home')}
+                className={`nav-item ${view === 'home' ? 'active' : ''}`}
+                onClick={() => handleChangeView('home')}
               >Home page</button>
               <button 
-                className={`nav-item ${page === 'about' ? 'active' : ''}`}
-                onClick={() => handleChangePage('about')}
+                className={`nav-item ${view === 'about' ? 'active' : ''}`}
+                onClick={() => handleChangeView('about')}
               >About page</button>
             </nav>
             <div className="tab-content">
-              {(page === 'home') && 
+              {(view === 'home') && 
                 <div className="tab-pane">
                   <div className="row">
                     <form className="col-4" onSubmit={handleSubmit}>
@@ -134,14 +154,29 @@ const App = () => {
                         </thead>
                         <tbody>
                         {userList.length 
-                          ? userList.map((user, index) => <UserRow key={index} id={index} user={user} onRemoveUser={handleRemoveUser}/>)
+                          ? userList.map((user) => <UserRow key={user.id} user={user} onRemoveUser={handleRemoveUser}/>)
                           : <tr><td className="text-center" colSpan="5">No user found</td></tr>}
                         </tbody>
                       </table>
+                      <nav className="d-flex justify-content-center">
+                        <ul className="pagination">
+                          <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`} onClick={() => handleChangePage(currentPage - 1)}>
+                            <span className="page-link">Previous</span>
+                          </li>
+                          {[...Array(totalPages)].map((page, i) =>
+                            <li key={i} className={`page-item ${currentPage === (i + 1) ? 'selected' : ''}`} onClick={() => handleChangePage(i + 1)}>
+                              <a className="page-link" href="#">{i + 1}</a>
+                            </li>
+                          )}
+                          <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`} onClick={() => handleChangePage(currentPage + 1)}>
+                            <span className="page-link">Next</span>
+                          </li>
+                        </ul>
+                      </nav>
                     </div>
                   </div>
                 </div>}
-              {(page === 'about') && <div className="tab-pane">About page</div>}
+              {(view === 'about') && <div className="tab-pane">About page</div>}
             </div>
           </div>
         </div>
